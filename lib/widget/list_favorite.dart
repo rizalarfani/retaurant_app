@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app/models/restaurant_model.dart';
 
 import '../providers/fovorite_provider.dart';
 import '../screen/detail_restaurant.dart';
 import '../utils/colors_theme.dart';
 
-class ListAllRestaurants extends StatelessWidget {
-  final dynamic restaurant;
-  const ListAllRestaurants({Key? key, this.restaurant}) : super(key: key);
+class ListFavorite extends StatelessWidget {
+  final Restaurants? restaurant;
+  const ListFavorite({Key? key, this.restaurant}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,18 +17,19 @@ class ListAllRestaurants extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => DetailRestaurant(
-                    restaurant: restaurant,
-                  )),
+            builder: (context) => DetailRestaurant(
+              restaurant: restaurant!,
+            ),
+          ),
         );
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 25,
+        padding: const EdgeInsets.only(
+          left: 25,
+          right: 25,
         ),
         child: Container(
-          margin: const EdgeInsets.only(bottom: 15),
-          width: MediaQuery.of(context).size.width,
+          width: 266,
           decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.all(
@@ -36,8 +38,8 @@ class ListAllRestaurants extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                 color: Color.fromRGBO(211, 209, 216, 0.35),
-                offset: Offset(15, 15),
-                blurRadius: 30,
+                offset: Offset(0, 10),
+                blurRadius: 5,
               ),
             ],
           ),
@@ -47,16 +49,16 @@ class ListAllRestaurants extends StatelessWidget {
               Stack(
                 children: [
                   Hero(
-                    tag: restaurant?.id ?? '',
+                    tag: 'favorite${restaurant?.id ?? ''}',
                     child: ClipRRect(
                       borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(15),
                         topLeft: Radius.circular(15),
                       ),
                       child: Image.network(
-                        'https://restaurant-api.dicoding.dev/images/large/${restaurant!.pictureId}',
+                        'https://restaurant-api.dicoding.dev/images/small/${restaurant!.pictureId}',
                         fit: BoxFit.cover,
-                        height: 228,
+                        height: 136,
                         width: double.infinity,
                       ),
                     ),
@@ -107,7 +109,7 @@ class ListAllRestaurants extends StatelessWidget {
                       return Align(
                         alignment: Alignment.topRight,
                         child: InkWell(
-                          onTap: () => state.addBookmark(restaurant),
+                          onTap: () => state.addBookmark(restaurant!),
                           child: Container(
                             height: 28,
                             width: 28,
@@ -128,12 +130,13 @@ class ListAllRestaurants extends StatelessWidget {
                         ),
                       );
                     },
-                  ),
+                  )
                 ],
               ),
               Padding(
                 padding: const EdgeInsets.only(
                   left: 10,
+                  bottom: 10,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,7 +144,9 @@ class ListAllRestaurants extends StatelessWidget {
                     const SizedBox(height: 12),
                     Text(
                       restaurant?.name ?? '',
-                      style: Theme.of(context).textTheme.bodyText1,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: Theme.of(context).textTheme.bodyText2,
                     ),
                     const SizedBox(height: 8),
                     Row(
@@ -155,16 +160,17 @@ class ListAllRestaurants extends StatelessWidget {
                             const SizedBox(width: 5),
                             Text(
                               restaurant?.city ?? '',
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                               style: Theme.of(context).textTheme.caption,
                             ),
                           ],
                         ),
                       ],
                     ),
-                    const SizedBox(height: 20),
                   ],
                 ),
-              ),
+              )
             ],
           ),
         ),

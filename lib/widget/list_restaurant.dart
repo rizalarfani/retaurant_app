@@ -17,9 +17,10 @@ class ListRestaurant extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => DetailRestaurant(
-                    id: restaurant?.id ?? '',
-                  )),
+            builder: (context) => DetailRestaurant(
+              restaurant: restaurant!,
+            ),
+          ),
         );
       },
       child: Padding(
@@ -101,16 +102,19 @@ class ListRestaurant extends StatelessWidget {
                   ),
                   Consumer<FavoriteProvider>(
                     builder: (context, state, _) {
-                      return InkWell(
-                        onTap: () => state.addBookmark(restaurant!),
-                        child: Align(
-                          alignment: Alignment.topRight,
+                      bool isFavorite = state.result
+                          .where((element) => element.id == restaurant?.id)
+                          .isNotEmpty;
+                      return Align(
+                        alignment: Alignment.topRight,
+                        child: InkWell(
+                          onTap: () => state.addBookmark(restaurant!),
                           child: Container(
                             height: 28,
                             width: 28,
                             margin: const EdgeInsets.only(right: 10, top: 10),
                             decoration: BoxDecoration(
-                              color: restaurant!.isFavorite!
+                              color: isFavorite
                                   ? Colors.white
                                   : ColorsTheme.primaryColor,
                               shape: BoxShape.circle,
@@ -118,9 +122,8 @@ class ListRestaurant extends StatelessWidget {
                             child: Icon(
                               Icons.favorite,
                               size: 20,
-                              color: restaurant!.isFavorite!
-                                  ? ColorsTheme.primaryColor
-                                  : Colors.white,
+                              color:
+                                  isFavorite ? Colors.redAccent : Colors.white,
                             ),
                           ),
                         ),

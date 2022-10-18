@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/models/detail_restaurant_model.dart';
+import 'package:restaurant_app/models/restaurant_model.dart';
 import 'package:restaurant_app/providers/detail_restaurant_provider.dart';
 import 'package:restaurant_app/providers/reviews_provider.dart' as reviews;
 import 'package:restaurant_app/service/service_api.dart';
 import 'package:restaurant_app/utils/colors_theme.dart';
 import 'package:restaurant_app/widget/list_reviews.dart';
 
+import '../providers/fovorite_provider.dart';
 import '../utils/result_state.dart';
 import '../widget/error_text.dart';
 
 class DetailRestaurant extends StatelessWidget {
-  final String id;
-  const DetailRestaurant({Key? key, required this.id}) : super(key: key);
+  final Restaurants restaurant;
+  const DetailRestaurant({Key? key, required this.restaurant})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +27,8 @@ class DetailRestaurant extends StatelessWidget {
         Provider.of<reviews.ReviewsProvider>(context);
 
     return ChangeNotifierProvider<DetailRestaurantProvider>(
-      create: (context) =>
-          DetailRestaurantProvider(apiService: ServiceApi(), id: id),
+      create: (context) => DetailRestaurantProvider(
+          apiService: ServiceApi(), id: restaurant.id ?? ''),
       child: Scaffold(
         body: Consumer<DetailRestaurantProvider>(
           builder: (context, state, _) {
@@ -84,23 +87,38 @@ class DetailRestaurant extends StatelessWidget {
                                 color: Colors.black,
                               ),
                             ),
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: Container(
-                                height: 28,
-                                width: 28,
-                                margin:
-                                    const EdgeInsets.only(right: 10, top: 10),
-                                decoration: BoxDecoration(
-                                  color: ColorsTheme.primaryColor,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: const Icon(
-                                  Icons.favorite,
-                                  color: Colors.white,
-                                  size: 20,
-                                ),
-                              ),
+                            Consumer<FavoriteProvider>(
+                              builder: (context, state, _) {
+                                bool isFavorite = state.result
+                                    .where((element) =>
+                                        element.id == restaurant.id)
+                                    .isNotEmpty;
+                                return Align(
+                                  alignment: Alignment.topRight,
+                                  child: InkWell(
+                                    onTap: () => state.addBookmark(restaurant),
+                                    child: Container(
+                                      height: 28,
+                                      width: 28,
+                                      margin: const EdgeInsets.only(
+                                          right: 10, top: 10),
+                                      decoration: BoxDecoration(
+                                        color: isFavorite
+                                            ? Colors.white
+                                            : ColorsTheme.primaryColor,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Icon(
+                                        Icons.favorite,
+                                        size: 20,
+                                        color: isFavorite
+                                            ? Colors.redAccent
+                                            : Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -522,7 +540,7 @@ class DetailRestaurant extends StatelessWidget {
                                                 return ElevatedButton(
                                                   onPressed: () async {
                                                     await value.addReview(
-                                                        id,
+                                                        restaurant.id ?? '',
                                                         textControllerName.text,
                                                         textControllerReview
                                                             .text);

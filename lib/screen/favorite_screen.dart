@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/providers/fovorite_provider.dart';
+import 'package:restaurant_app/widget/list_favorite.dart';
 
 import '../utils/result_state.dart';
 import '../widget/error_text.dart';
-import '../widget/list_all_restaurants.dart';
 
 class FavorireScreen extends StatelessWidget {
   const FavorireScreen({Key? key}) : super(key: key);
@@ -48,7 +48,7 @@ class FavorireScreen extends StatelessWidget {
                     return ListView.builder(
                       itemCount: state.result.length,
                       scrollDirection: Axis.vertical,
-                      itemBuilder: (context, index) => ListAllRestaurants(
+                      itemBuilder: (context, index) => ListFavorite(
                         restaurant: state.result[index],
                       ),
                     );
