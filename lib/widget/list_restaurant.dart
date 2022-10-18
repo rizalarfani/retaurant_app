@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app/providers/detail_restaurant_provider.dart';
 import 'package:restaurant_app/providers/fovorite_provider.dart';
 import 'package:restaurant_app/screen/detail_restaurant.dart';
 
 import '../models/restaurant_model.dart';
 import '../utils/colors_theme.dart';
-import '../utils/result_state.dart' as resultState;
 
 class ListRestaurant extends StatelessWidget {
   final Restaurants? restaurant;
@@ -101,45 +99,33 @@ class ListRestaurant extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Container(
-                      height: 28,
-                      width: 28,
-                      margin: const EdgeInsets.only(right: 10, top: 10),
-                      decoration: BoxDecoration(
-                        color: ColorsTheme.primaryColor,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Consumer<FavoriteProvider>(
-                        builder: (context, state, _) {
-                          return InkWell(
-                            onTap: () {
-                              if (state.state ==
-                                  resultState.ResultState.errors) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    backgroundColor: Colors.redAccent,
-                                    content: Text(
-                                      state.message,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }
-                            },
-                            child: const Icon(
+                  Consumer<FavoriteProvider>(
+                    builder: (context, state, _) {
+                      return InkWell(
+                        onTap: () => state.addBookmark(restaurant!),
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: Container(
+                            height: 28,
+                            width: 28,
+                            margin: const EdgeInsets.only(right: 10, top: 10),
+                            decoration: BoxDecoration(
+                              color: restaurant!.isFavorite!
+                                  ? Colors.white
+                                  : ColorsTheme.primaryColor,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
                               Icons.favorite,
                               size: 20,
-                              color: Colors.white,
+                              color: restaurant!.isFavorite!
+                                  ? ColorsTheme.primaryColor
+                                  : Colors.white,
                             ),
-                          );
-                        },
-                      ),
-                    ),
+                          ),
+                        ),
+                      );
+                    },
                   )
                 ],
               ),

@@ -30,11 +30,18 @@ class DatabaseManager {
           id TEXT PRIMARY KEY,
           name TEXT NOT NULL,
           description TEXT NOT NULL,
+          pictureId TEXT NOT NULL,
           city TEXT NOT NULL,
           rating REAL NOT NULL
         )''');
       },
     );
+  }
+
+  Future<List<Restaurants>> getFavoriteRestaurant() async {
+    _db = await instanse.db;
+    List<Map<String, dynamic>> results = await _db!.query(_table);
+    return results.map((e) => Restaurants.fromJson(e)).toList();
   }
 
   Future<void> insertFavorite(Restaurants restaurant) async {
@@ -43,9 +50,15 @@ class DatabaseManager {
       'id': restaurant.id,
       'name': restaurant.name,
       'description': restaurant.description,
+      'pictureId': restaurant.pictureId,
       'city': restaurant.city,
       'rating': restaurant.rating,
     });
+  }
+
+  Future<void> removeFavorite(String id) async {
+    _db = await instanse.db;
+    await _db!.delete(_table, where: 'id = ?', whereArgs: [id]);
   }
 
   Future<Map> getFavoriteById(String id) async {
