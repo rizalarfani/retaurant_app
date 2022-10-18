@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app/database/favorite_restaurant_db.dart';
 import 'package:restaurant_app/home.dart';
 import 'package:restaurant_app/providers/bottom_navigation_bar_provider.dart';
 import 'package:restaurant_app/providers/categories_provider.dart';
+import 'package:restaurant_app/providers/fovorite_provider.dart';
 import 'package:restaurant_app/providers/populars_provider.dart';
 import 'package:restaurant_app/providers/restaurants_provider.dart';
 import 'package:restaurant_app/providers/reviews_provider.dart';
@@ -50,6 +52,9 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider<SearchRestaurantsProvider>(
           create: (_) => SearchRestaurantsProvider(apiService: ServiceApi()),
+        ),
+        ChangeNotifierProvider<FavoriteProvider>(
+          create: (_) => FavoriteProvider(database: DatabaseManager.instanse),
         ),
       ],
       child: Consumer<ThemeConfigProvider>(

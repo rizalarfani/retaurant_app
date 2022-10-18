@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_app/providers/detail_restaurant_provider.dart';
+import 'package:restaurant_app/providers/fovorite_provider.dart';
 import 'package:restaurant_app/screen/detail_restaurant.dart';
 
 import '../models/restaurant_model.dart';
 import '../utils/colors_theme.dart';
+import '../utils/result_state.dart' as resultState;
 
 class ListRestaurant extends StatelessWidget {
   final Restaurants? restaurant;
@@ -107,10 +111,33 @@ class ListRestaurant extends StatelessWidget {
                         color: ColorsTheme.primaryColor,
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(
-                        Icons.favorite,
-                        color: Colors.white,
-                        size: 20,
+                      child: Consumer<FavoriteProvider>(
+                        builder: (context, state, _) {
+                          return InkWell(
+                            onTap: () {
+                              if (state.state ==
+                                  resultState.ResultState.errors) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor: Colors.redAccent,
+                                    content: Text(
+                                      state.message,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
+                            child: const Icon(
+                              Icons.favorite,
+                              size: 20,
+                              color: Colors.white,
+                            ),
+                          );
+                        },
                       ),
                     ),
                   )

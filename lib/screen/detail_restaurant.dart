@@ -8,6 +8,7 @@ import 'package:restaurant_app/service/service_api.dart';
 import 'package:restaurant_app/utils/colors_theme.dart';
 import 'package:restaurant_app/widget/list_reviews.dart';
 
+import '../utils/result_state.dart';
 import '../widget/error_text.dart';
 
 class DetailRestaurant extends StatelessWidget {

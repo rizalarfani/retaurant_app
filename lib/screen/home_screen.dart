@@ -11,13 +11,14 @@ import 'package:restaurant_app/widget/error_text.dart';
 import 'package:restaurant_app/widget/list_category.dart';
 import 'package:restaurant_app/widget/list_restaurant.dart';
 
+import '../utils/result_state.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final TextEditingController searchController = TextEditingController();
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -128,8 +129,7 @@ class HomeScreen extends StatelessWidget {
                         child: IconButton(
                           onPressed: () async {
                             await value.searchQuery(searchController.text);
-                            if (value.state ==
-                                search_provider.ResultState.loading) {
+                            if (value.state == ResultState.loading) {
                               showDialog(
                                 context: context,
                                 builder: (context) {
@@ -146,8 +146,7 @@ class HomeScreen extends StatelessWidget {
                                   );
                                 },
                               );
-                            } else if (value.state ==
-                                search_provider.ResultState.hashData) {
+                            } else if (value.state == ResultState.hashData) {
                               Navigator.push(context, MaterialPageRoute(
                                 builder: (context) {
                                   return SearchScreen(
@@ -155,8 +154,7 @@ class HomeScreen extends StatelessWidget {
                                       restaurants: value.result);
                                 },
                               ));
-                            } else if (value.state ==
-                                search_provider.ResultState.errors) {
+                            } else if (value.state == ResultState.errors) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(value.message),

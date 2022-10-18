@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_app/providers/restaurants_provider.dart';
 import 'package:restaurant_app/widget/list_all_restaurants.dart';
 
+import '../utils/result_state.dart';
 import '../widget/error_text.dart';
 
 class RestaurantsAll extends StatelessWidget {

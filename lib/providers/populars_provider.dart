@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:restaurant_app/models/restaurant_model.dart';
 import 'package:restaurant_app/service/service_api.dart';
 
-enum ResultState { loading, noData, hashData, errors }
+import '../utils/result_state.dart';
 
 class PopularsProvider extends ChangeNotifier {
   final ServiceApi apiService;
