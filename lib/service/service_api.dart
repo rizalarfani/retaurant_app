@@ -79,4 +79,16 @@ class ServiceApi {
       throw (response.body);
     }
   }
+
+  Future<restaurant_model.Restaurants> getRandomRestaurant() async {
+    Uri url = Uri.parse(_baseUrl + 'list');
+    Response response = await _client.get(url);
+    if (response.statusCode == 200) {
+      List? data =
+          (jsonDecode(response.body) as Map<String, dynamic>)['restaurants'];
+      return restaurant_model.Restaurants.fromJson((data!..shuffle()).first);
+    } else {
+      throw Exception(response.body);
+    }
+  }
 }
