@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/providers/bottom_navigation_bar_provider.dart';
-import 'package:restaurant_app/providers/theme_config_provider.dart';
 import 'package:restaurant_app/screen/favorite_screen.dart';
 import 'package:restaurant_app/screen/home_screen.dart';
 import 'package:restaurant_app/screen/location_screen.dart';
-import 'package:restaurant_app/screen/notification_screen.dart';
+import 'package:restaurant_app/screen/setting_screen.dart';
 import 'package:restaurant_app/utils/colors_theme.dart';
 
 class HomePage extends StatelessWidget {
@@ -24,7 +23,7 @@ class HomePage extends StatelessWidget {
                 HomeScreen(),
                 LocationScreen(),
                 FavorireScreen(),
-                NotificationScreen(),
+                SettingsScreen(),
               ],
             );
           },
@@ -73,22 +72,9 @@ class HomePage extends StatelessWidget {
                       ? ColorsTheme.primaryColor
                       : ColorsTheme.secundaryTextColor,
                 ),
-                label: 'Notification',
+                label: 'Settings',
               ),
             ],
-          );
-        },
-      ),
-      floatingActionButton: Consumer<ThemeConfigProvider>(
-        builder: (context, state, _) {
-          return FloatingActionButton(
-            backgroundColor:
-                state.isDark ? Colors.white : ColorsTheme.primaryColor,
-            child: Icon(
-              state.isDark ? Icons.light_mode : Icons.dark_mode,
-            ),
-            onPressed: () =>
-                state.isDark ? state.isDark = false : state.isDark = true,
           );
         },
       ),

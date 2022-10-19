@@ -8,6 +8,7 @@ import 'package:restaurant_app/providers/fovorite_provider.dart';
 import 'package:restaurant_app/providers/populars_provider.dart';
 import 'package:restaurant_app/providers/restaurants_provider.dart';
 import 'package:restaurant_app/providers/reviews_provider.dart';
+import 'package:restaurant_app/providers/scheduling_provider.dart';
 import 'package:restaurant_app/providers/search_restaurant_provider.dart';
 import 'package:restaurant_app/providers/theme_config_provider.dart';
 import 'package:restaurant_app/service/service_api.dart';
@@ -56,6 +57,9 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider<FavoriteProvider>(
           create: (_) => FavoriteProvider(database: DatabaseManager.instanse),
         ),
+        ChangeNotifierProvider<SchedulingProvider>(
+          create: (_) => SchedulingProvider(),
+        )
       ],
       child: Consumer<ThemeConfigProvider>(
         builder: (context, state, _) {
