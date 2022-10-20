@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app/helper/navigator_helper.dart';
 import 'package:restaurant_app/models/restaurant_model.dart';
 
 import '../providers/fovorite_provider.dart';
@@ -13,16 +14,8 @@ class ListFavorite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DetailRestaurant(
-              restaurant: restaurant!,
-            ),
-          ),
-        );
-      },
+      onTap: () => NavigationHelper.intentWithData(
+          DetailRestaurant.routeName, restaurant!),
       child: Padding(
         padding: const EdgeInsets.only(
           left: 25,

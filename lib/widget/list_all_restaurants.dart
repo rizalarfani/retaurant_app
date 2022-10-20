@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app/helper/navigator_helper.dart';
 
 import '../providers/fovorite_provider.dart';
 import '../screen/detail_restaurant.dart';
@@ -12,15 +13,8 @@ class ListAllRestaurants extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => DetailRestaurant(
-                    restaurant: restaurant,
-                  )),
-        );
-      },
+      onTap: () => NavigationHelper.intentWithData(
+          DetailRestaurant.routeName, restaurant),
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 25,

@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:restaurant_app/helper/date_time_helper.dart';
 import 'package:restaurant_app/service/service_background.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,10 +23,10 @@ class SchedulingProvider extends ChangeNotifier {
       log('Scheduling Activated');
       notifyListeners();
       return await AndroidAlarmManager.periodic(
-        const Duration(hours: 24),
+        const Duration(minutes: 1),
         1,
         BackgroundService.callback,
-        startAt: DateTimeHelper.format(),
+        // startAt: DateTimeHelper.format(),
         exact: true,
         wakeup: true,
       );

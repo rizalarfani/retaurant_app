@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/database/favorite_restaurant_db.dart';
+import 'package:restaurant_app/helper/navigator_helper.dart';
 import 'package:restaurant_app/helper/notification_helper.dart';
 import 'package:restaurant_app/home.dart';
+import 'package:restaurant_app/models/restaurant_model.dart';
 import 'package:restaurant_app/providers/bottom_navigation_bar_provider.dart';
 import 'package:restaurant_app/providers/categories_provider.dart';
 import 'package:restaurant_app/providers/fovorite_provider.dart';
@@ -16,6 +18,7 @@ import 'package:restaurant_app/providers/reviews_provider.dart';
 import 'package:restaurant_app/providers/scheduling_provider.dart';
 import 'package:restaurant_app/providers/search_restaurant_provider.dart';
 import 'package:restaurant_app/providers/theme_config_provider.dart';
+import 'package:restaurant_app/screen/detail_restaurant.dart';
 import 'package:restaurant_app/service/service_api.dart';
 import 'package:restaurant_app/service/service_background.dart';
 import 'package:restaurant_app/utils/theme_config.dart';
@@ -89,7 +92,14 @@ class _MyAppState extends State<MyApp> {
             theme:
                 state.isDark ? ThemeConfig.darkTheme : ThemeConfig.lightTheme,
             darkTheme: ThemeConfig.darkTheme,
-            home: const HomePage(),
+            navigatorKey: navigatorKey,
+            initialRoute: HomePage.routeName,
+            routes: {
+              HomePage.routeName: (context) => const HomePage(),
+              DetailRestaurant.routeName: (context) => DetailRestaurant(
+                  restaurant: ModalRoute.of(context)?.settings.arguments
+                      as Restaurants),
+            },
           );
         },
       ),

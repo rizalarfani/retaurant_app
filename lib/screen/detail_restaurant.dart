@@ -14,6 +14,7 @@ import '../utils/result_state.dart';
 import '../widget/error_text.dart';
 
 class DetailRestaurant extends StatelessWidget {
+  static const routeName = '/detail_restaurant';
   final Restaurants restaurant;
   const DetailRestaurant({Key? key, required this.restaurant})
       : super(key: key);
