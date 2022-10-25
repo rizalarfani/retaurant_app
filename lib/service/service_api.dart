@@ -27,7 +27,7 @@ class ServiceApi {
             .toList();
       }
     } else if (response.statusCode == 404) {
-      return [];
+      throw Exception('Not Found');
     } else {
       throw Exception(response.body);
     }
