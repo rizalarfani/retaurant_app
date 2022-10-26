@@ -3,12 +3,9 @@ import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:restaurant_app/models/restaurant_model.dart';
-import 'package:restaurant_app/providers/populars_provider.dart';
 import 'package:restaurant_app/service/service_api.dart';
 
 import 'restaurant_test.mocks.dart';
-
-class MockPopularsRestaurant extends Mock implements PopularsProvider {}
 
 @GenerateMocks([http.Client])
 void main() {
