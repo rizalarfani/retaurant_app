@@ -133,7 +133,8 @@ class DetailRestaurant extends StatelessWidget {
                           children: [
                             RatingBarIndicator(
                               itemCount: 5,
-                              rating: state.restaurant.rating ?? 0,
+                              rating: double.parse(
+                                  state.restaurant.rating.toString()),
                               itemSize: 20,
                               itemBuilder: (context, index) {
                                 return const Icon(

@@ -33,7 +33,7 @@ class Restaurant {
   String? pictureId;
   List<Categories>? categories;
   Menus? menus;
-  double? rating;
+  dynamic rating;
   List<CustomerReviews>? customerReviews;
 
   Restaurant(
