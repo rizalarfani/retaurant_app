@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/helper/navigator_helper.dart';
 import 'package:restaurant_app/models/restaurant_model.dart';
+import 'package:restaurant_app/widget/error_text.dart';
 
 import '../providers/fovorite_provider.dart';
 import '../screen/detail_restaurant.dart';
@@ -53,6 +54,12 @@ class ListFavorite extends StatelessWidget {
                         fit: BoxFit.cover,
                         height: 136,
                         width: double.infinity,
+                        errorBuilder: (BuildContext context, Object exception,
+                            StackTrace? stackTrace) {
+                          return const ErrorText(
+                              textError:
+                                  'Image failed to load because internet is not available');
+                        },
                       ),
                     ),
                   ),

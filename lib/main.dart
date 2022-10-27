@@ -8,7 +8,6 @@ import 'package:restaurant_app/database/favorite_restaurant_db.dart';
 import 'package:restaurant_app/helper/navigator_helper.dart';
 import 'package:restaurant_app/helper/notification_helper.dart';
 import 'package:restaurant_app/home.dart';
-import 'package:restaurant_app/models/restaurant_model.dart';
 import 'package:restaurant_app/providers/bottom_navigation_bar_provider.dart';
 import 'package:restaurant_app/providers/categories_provider.dart';
 import 'package:restaurant_app/providers/fovorite_provider.dart';
@@ -97,8 +96,8 @@ class _MyAppState extends State<MyApp> {
             routes: {
               HomePage.routeName: (context) => const HomePage(),
               DetailRestaurant.routeName: (context) => DetailRestaurant(
-                  restaurant: ModalRoute.of(context)?.settings.arguments
-                      as Restaurants),
+                  restaurant:
+                      ModalRoute.of(context)?.settings.arguments as dynamic),
             },
           );
         },

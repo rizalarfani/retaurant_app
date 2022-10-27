@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/models/detail_restaurant_model.dart';
-import 'package:restaurant_app/models/restaurant_model.dart';
 import 'package:restaurant_app/providers/detail_restaurant_provider.dart';
 import 'package:restaurant_app/providers/reviews_provider.dart' as reviews;
 import 'package:restaurant_app/service/service_api.dart';
@@ -15,7 +14,7 @@ import '../widget/error_text.dart';
 
 class DetailRestaurant extends StatelessWidget {
   static const routeName = '/detail_restaurant';
-  final Restaurants restaurant;
+  final dynamic restaurant;
   const DetailRestaurant({Key? key, required this.restaurant})
       : super(key: key);
 
