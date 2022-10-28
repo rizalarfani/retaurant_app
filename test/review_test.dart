@@ -15,7 +15,7 @@ void main() {
   MockClient client = MockClient();
 
   setUp(() {
-    serviceApi = ServiceApi();
+    serviceApi = ServiceApi(client: client);
     mockReviewsProvider = MockReviewsProvider();
   });
 

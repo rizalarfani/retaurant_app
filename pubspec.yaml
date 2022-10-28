@@ -51,6 +51,8 @@ flutter:
     - 'assets/img/'
     - 'assets/icons/'
     - 'assets/json/local_restaurant.json'
+    - 'assets/json/list_restaurant.json'
+    - 'assets/json/detail_restaurant.json'
 
   fonts:
     - family: sofiapro

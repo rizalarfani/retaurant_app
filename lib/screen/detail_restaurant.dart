@@ -7,6 +7,7 @@ import 'package:restaurant_app/providers/reviews_provider.dart' as reviews;
 import 'package:restaurant_app/service/service_api.dart';
 import 'package:restaurant_app/utils/colors_theme.dart';
 import 'package:restaurant_app/widget/list_reviews.dart';
+import 'package:http/http.dart' as http;
 
 import '../providers/fovorite_provider.dart';
 import '../utils/result_state.dart';
@@ -28,7 +29,8 @@ class DetailRestaurant extends StatelessWidget {
 
     return ChangeNotifierProvider<DetailRestaurantProvider>(
       create: (context) => DetailRestaurantProvider(
-          apiService: ServiceApi(), id: restaurant.id ?? ''),
+          apiService: ServiceApi(client: http.Client()),
+          id: restaurant.id ?? ''),
       child: Scaffold(
         body: Consumer<DetailRestaurantProvider>(
           builder: (context, state, _) {

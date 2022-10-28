@@ -21,6 +21,7 @@ import 'package:restaurant_app/screen/detail_restaurant.dart';
 import 'package:restaurant_app/service/service_api.dart';
 import 'package:restaurant_app/service/service_background.dart';
 import 'package:restaurant_app/utils/theme_config.dart';
+import 'package:http/http.dart' as http;
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -59,7 +60,8 @@ class _MyAppState extends State<MyApp> {
           create: (context) => BottomNavigationBarProvider(),
         ),
         ChangeNotifierProvider<PopularsProvider>(
-          create: (_) => PopularsProvider(apiService: ServiceApi()),
+          create: (_) =>
+              PopularsProvider(apiService: ServiceApi(client: http.Client())),
         ),
         ChangeNotifierProvider<CategoriesProvider>(
           create: (_) => CategoriesProvider(),
@@ -68,13 +70,16 @@ class _MyAppState extends State<MyApp> {
           create: (_) => ThemeConfigProvider(),
         ),
         ChangeNotifierProvider<RestaurantProvider>(
-          create: (_) => RestaurantProvider(apiService: ServiceApi()),
+          create: (_) =>
+              RestaurantProvider(apiService: ServiceApi(client: http.Client())),
         ),
         ChangeNotifierProvider<ReviewsProvider>(
-          create: (_) => ReviewsProvider(apiServie: ServiceApi()),
+          create: (_) =>
+              ReviewsProvider(apiServie: ServiceApi(client: http.Client())),
         ),
         ChangeNotifierProvider<SearchRestaurantsProvider>(
-          create: (_) => SearchRestaurantsProvider(apiService: ServiceApi()),
+          create: (_) => SearchRestaurantsProvider(
+              apiService: ServiceApi(client: http.Client())),
         ),
         ChangeNotifierProvider<FavoriteProvider>(
           create: (_) => FavoriteProvider(database: DatabaseManager.instanse),
