@@ -5,6 +5,7 @@ import 'package:mockito/mockito.dart';
 import 'package:restaurant_app/models/detail_restaurant_model.dart';
 import 'package:restaurant_app/providers/reviews_provider.dart';
 import 'package:restaurant_app/service/service_api.dart';
+import 'package:restaurant_app/utils/constans.dart';
 
 import 'review_test.mocks.dart';
 
@@ -24,17 +25,11 @@ void main() {
         'returns an List customerReviews if the http call completes successfully',
         () async {
       String id = 'rqdv5juczeskfw1e867';
+      String jsonString =
+          Constans.readJson('assets/json/detail_restaurant.json');
       when(client
               .get(Uri.parse('https://restaurant-api.dicoding.dev/detail/$id')))
-          .thenAnswer((_) => Future.value(http.Response('''{
-            "customerReviews": [
-              {
-                "name": "Ahmad",
-                "review": "Tidak rekomendasi untuk pelajar!",
-                "date": "13 November 2019"
-              }
-            ]
-          }''', 200)));
+          .thenAnswer((_) => Future.value(http.Response(jsonString, 200)));
       final reviews = await serviceApi.getDetailRestaurant(id);
       expect(reviews.restaurant!.customerReviews, isA<List<CustomerReviews>>());
       expect(reviews.restaurant!.customerReviews, isNotEmpty);
