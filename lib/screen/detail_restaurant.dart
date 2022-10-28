@@ -63,6 +63,13 @@ class DetailRestaurant extends StatelessWidget {
                                   'https://restaurant-api.dicoding.dev/images/large/${state.restaurant.pictureId}',
                                   fit: BoxFit.cover,
                                   width: double.infinity,
+                                  errorBuilder: (BuildContext context,
+                                      Object exception,
+                                      StackTrace? stackTrace) {
+                                    return const ErrorText(
+                                        textError:
+                                            'Image failed to load because internet is not available');
+                                  },
                                 ),
                               ),
                             ),

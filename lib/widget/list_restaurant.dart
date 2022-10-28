@@ -6,6 +6,7 @@ import 'package:restaurant_app/screen/detail_restaurant.dart';
 
 import '../models/restaurant_model.dart';
 import '../utils/colors_theme.dart';
+import 'error_text.dart';
 
 class ListRestaurant extends StatelessWidget {
   final Restaurants? restaurant;
@@ -52,6 +53,12 @@ class ListRestaurant extends StatelessWidget {
                         fit: BoxFit.cover,
                         height: 136,
                         width: double.infinity,
+                        errorBuilder: (BuildContext context, Object exception,
+                            StackTrace? stackTrace) {
+                          return const ErrorText(
+                              textError:
+                                  'Image failed to load because internet is not available');
+                        },
                       ),
                     ),
                   ),
