@@ -147,13 +147,17 @@ class HomeScreen extends StatelessWidget {
                                 },
                               );
                             } else if (value.state == ResultState.hashData) {
-                              Navigator.push(context, MaterialPageRoute(
-                                builder: (context) {
-                                  return SearchScreen(
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return SearchScreen(
                                       query: searchController.text,
-                                      restaurants: value.result);
-                                },
-                              ));
+                                      restaurants: value.result,
+                                    );
+                                  },
+                                ),
+                              );
                             } else if (value.state == ResultState.errors) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(

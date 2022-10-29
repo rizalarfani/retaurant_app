@@ -5,7 +5,6 @@ class Restaurants {
   String? pictureId;
   String? city;
   dynamic rating;
-  bool? isFavorite = false;
 
   Restaurants(
       {this.id,
@@ -32,7 +31,6 @@ class Restaurants {
     data['pictureId'] = pictureId;
     data['city'] = city;
     data['rating'] = rating;
-    data['isFavorite'] = isFavorite;
     return data;
   }
 }

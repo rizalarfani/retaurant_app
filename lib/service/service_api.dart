@@ -5,7 +5,6 @@ import 'package:restaurant_app/models/add_review.dart';
 import 'package:restaurant_app/models/detail_restaurant_model.dart';
 import 'package:restaurant_app/models/restaurant_model.dart'
     as restaurant_model;
-import 'package:restaurant_app/models/search_model.dart';
 import '../utils/constans.dart';
 
 class ServiceApi {
@@ -69,13 +68,19 @@ class ServiceApi {
     }
   }
 
-  Future<SearchModel> search(String query) async {
+  Future<List<restaurant_model.Restaurants>> search(String query) async {
     Uri url = Uri.parse(_baseUrl + 'search?q=$query');
     Response response = await client.get(url);
     if (response.statusCode == 200) {
-      return SearchModel.fromJson(jsonDecode(response.body));
-    } else if (response.statusCode == 404) {
-      return SearchModel.fromJson(jsonDecode(response.body));
+      List? data =
+          (jsonDecode(response.body) as Map<String, dynamic>)['restaurants'];
+      if (data == null || data.isEmpty) {
+        return [];
+      } else {
+        return data
+            .map((e) => restaurant_model.Restaurants.fromJson(e))
+            .toList();
+      }
     } else {
       throw (response.body);
     }

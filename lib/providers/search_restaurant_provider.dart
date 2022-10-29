@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 
-import '../models/search_model.dart';
+import '../models/restaurant_model.dart';
 import '../service/service_api.dart';
 import '../utils/result_state.dart';
 
@@ -29,9 +29,9 @@ class SearchRestaurantsProvider extends ChangeNotifier {
         _state = ResultState.loading;
         notifyListeners();
         var result = await apiService.search(query);
-        if (!result.error!) {
+        if (result.isNotEmpty) {
           _state = ResultState.hashData;
-          _restaurants = result.restaurants ?? [];
+          _restaurants = result;
           notifyListeners();
         } else {
           _state = ResultState.noData;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/widget/error_text.dart';
 import 'package:restaurant_app/widget/list_all_restaurants.dart';
-import '../models/search_model.dart';
+import '../models/restaurant_model.dart';
 
 class SearchScreen extends StatelessWidget {
   final String query;

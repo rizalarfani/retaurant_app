@@ -36,11 +36,9 @@ class FavoriteProvider extends ChangeNotifier {
     try {
       if (!await _isFovorited(restaurant.id ?? '')) {
         await database.insertFavorite(restaurant);
-        restaurant.isFavorite = true;
         notifyListeners();
       } else {
         await database.removeFavorite(restaurant.id!);
-        restaurant.isFavorite = false;
         notifyListeners();
       }
       _getFavoriteRestaurant();
